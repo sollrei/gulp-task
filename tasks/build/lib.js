@@ -2,10 +2,10 @@ const { src, dest } = require('gulp');
 
 const config = require('../config');
 
-const { base, dist, assets } = config.paths;
+const { base, dist, lib } = config.paths;
 
 module.exports = function (cb) {
-  src(assets, { base })
+  src(lib, { base })
     .pipe(dest(dist));
   cb();
 };

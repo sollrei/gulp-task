@@ -11,6 +11,8 @@ module.exports = {
     css: `src/${m}/**/src/*.+(scss|css)`,
     js: `src/${m}/**/src/*.+(js|es6)`,
     html: `src/${m}/**/html/*.html`,
+    assets: `src/${m}/**/src/**/*.!(css|scss|js|es6|html)`,
+    lib: 'src/lib/**/*',
     base: 'src/',
     dist: dist,
     rev: 'rev/',
