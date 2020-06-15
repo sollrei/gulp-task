@@ -12,7 +12,7 @@ const config = require('../config');
 const rd = require('../util/read-config');
 const inline = require('../plugin/gulp-inline');
 
-const isDev = !!(process.env.NODE_ENV === 'development');
+const isDev = config.isDev;
 
 let mod = '';
 

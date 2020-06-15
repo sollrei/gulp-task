@@ -1,4 +1,5 @@
 const { task, series, watch } = require('gulp');
+const config = require('./tasks/config');
 
 const clean = require('./tasks/clean');
 
@@ -8,6 +9,8 @@ const assets = require('./tasks/build/assets');
 const html = require('./tasks/build/html');
 
 const rev = require('./tasks/rev/rev');
+
+const index = require('./tasks/plugin/gulp-index');
 
 const test = 'abc';
 
@@ -25,6 +28,7 @@ task('html', () => { return html(); });
 
 task('rev', () => { return rev(); });
 
+task('index', (cb) => { return index(cb); });
 
 exports.dev = series(
   ['clean'],
@@ -38,8 +42,9 @@ exports.build = series(
 
 exports.watch = series(
   function (done) {
-    watch('src/**/*.js', { delay: 1000 }, js);
-    watch('src/**/*.scss', { delay: 1000 }, css);
+    watch(config.paths.js, { delay: 1000 }, js);
+    watch(config.paths.css, { delay: 1000 }, css);
+    watch(config.paths.html, { delay: 1000 }, html);
     done();
   }
 );
