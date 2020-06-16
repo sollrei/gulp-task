@@ -19,7 +19,8 @@ module.exports = (pt) => {
       foreach((stream) => {
         return stream.pipe(
           nunjucksRender({
-            path: [path.resolve(__dirname, config.paths.base)]
+            path: [path.resolve(__dirname, config.paths.base)],
+            data: config.templateData
           })
         );
       })
