@@ -22,7 +22,6 @@ module.exports = {
   servePort: 80,
   isDev,
 
-
   templateData: {
     title: 'demo title'
   }
