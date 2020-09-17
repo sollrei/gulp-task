@@ -6,6 +6,7 @@ const gulpIf = require('gulp-if');
 const rev = require('gulp-rev');
 const sass = require('gulp-sass');
 sass.compiler = require('node-sass');
+const browserSync = require('../serve/server').browserSync;
 
 const isDev = config.isDev;
 
@@ -30,6 +31,6 @@ module.exports = function (pt) {
       base: 'rev/css',
       merge: true
     })))
-    .pipe(gulpIf(!isDev, dest('rev/css')));
-  // .pipe(gulpIf(isDev, browserSync.stream()));
+    .pipe(gulpIf(!isDev, dest('rev/css')))
+    .pipe(gulpIf(isDev, browserSync.stream()));
 };

@@ -6,6 +6,7 @@ const path = require('path');
 const foreach = require('gulp-foreach');
 
 const config = require('../config');
+const browserSync = require('../serve/server').browserSync;
 
 module.exports = (pt) => {
   let _path = config.paths.html;
@@ -19,13 +20,13 @@ module.exports = (pt) => {
       foreach((stream) => {
         return stream.pipe(
           nunjucksRender({
-            path: [path.resolve(__dirname, config.paths.base)],
+            path: [path.resolve(__dirname, '../../', config.paths.base)],
             data: config.templateData
           })
         );
       })
     )
     .pipe(removeEmptyLines())
-    .pipe(dest(config.paths.dist));
-  // .pipe(browserSync.stream());
+    .pipe(dest(config.paths.dist))
+    .pipe(browserSync.stream());
 };

@@ -11,6 +11,7 @@ const rev = require('gulp-rev');
 const config = require('../config');
 const rd = require('../util/read-config');
 const inline = require('../plugin/gulp-inline');
+const browserSync = require('../serve/server').browserSync;
 
 const isDev = config.isDev;
 
@@ -45,5 +46,6 @@ module.exports = function () {
       base: 'rev/js',
       merge: true
     })))
-    .pipe(gulpIf(!isDev, dest('rev/js')));
+    .pipe(gulpIf(!isDev, dest('rev/js')))
+    .pipe(gulpIf(isDev, browserSync.stream()));
 };

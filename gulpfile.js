@@ -1,5 +1,4 @@
 const { task, series, watch } = require('gulp');
-const config = require('./tasks/config');
 
 const clean = require('./tasks/util/clean');
 
@@ -10,7 +9,7 @@ const html = require('./tasks/build/html');
 
 const rev = require('./tasks/rev/rev');
 
-const serve = require('./tasks/serve/server');
+const serve = require('./tasks/serve/server').sv;
 
 const index = require('./tasks/plugin/gulp-index');
 
@@ -38,9 +37,15 @@ exports.build = series(['clean'], ['css', 'js', 'html', 'rev']);
 exports.watch = series(
   serve,
   function (done) {
-    watch(config.paths.js, { delay: 1000 }, js);
-    watch(config.paths.css, { delay: 1000 }, css);
-    watch(config.paths.html, { delay: 1000 }, html);
+    watch('src/**/src/*.+(js|es6)').on('change', function (file) {
+      js(file);
+    });
+    watch('src/**/src/*.+(scss|css)').on('change', function (file) {
+      css(file);
+    });
+    watch('src/**/html/*.html').on('change', function (file) {
+      html(file);
+    });
     done();
   }
 );
