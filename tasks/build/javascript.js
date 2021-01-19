@@ -15,7 +15,7 @@ const browserSync = require('../serve/server').browserSync;
 
 const isDev = config.isDev;
 
-let mod = '';
+let _conf = {};
 
 module.exports = function (pt) {
   let _path = config.paths.js;
@@ -32,14 +32,16 @@ module.exports = function (pt) {
 
         if (bundle && Array.isArray(bundle) && bundle.includes(path.basename(file.path))) {
           if (file.isBuffer()) {
-            mod = 'umd';
+            _conf = { format: 'umd' };
           }
+        } else {
+          _conf = {};
         }
 
         callback(null, file);
       })
     )
-    .pipe(rollup({ format: 'umd' }))
+    .pipe(rollup(_conf))
     .pipe(inline())
     .pipe(
       babel({
