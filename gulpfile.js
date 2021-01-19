@@ -6,6 +6,7 @@ const css = require('./tasks/build/css');
 const js = require('./tasks/build/javascript');
 const assets = require('./tasks/build/assets');
 const html = require('./tasks/build/html');
+const lib = require('./tasks/build/lib');
 
 const rev = require('./tasks/rev/rev');
 
@@ -13,11 +14,13 @@ const serve = require('./tasks/serve/server').sv;
 
 const index = require('./tasks/plugin/gulp-index');
 
-task('clean', () => { return clean(); });
+task('clean', clean);
 
-task('css', () => { return css(); });
+task('css', css);
 
-task('js', () => { return js(); });
+task('js', js);
+
+task('lib', lib);
 
 task('assets', (cb) => { return assets(cb); });
 

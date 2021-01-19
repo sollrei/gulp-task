@@ -17,8 +17,15 @@ const isDev = config.isDev;
 
 let mod = '';
 
-module.exports = function () {
-  return src(config.paths.js, { base: config.paths.base })
+module.exports = function (pt) {
+  let _path = config.paths.js;
+
+  if (typeof pt === 'string') {
+    _path = pt;
+  }
+
+
+  return src(_path, { base: config.paths.base })
     .pipe(
       through.obj({ objectMode: true }, function (file, enc, callback) {
         const { bundle } = rd(path.dirname(file.path));
@@ -32,7 +39,7 @@ module.exports = function () {
         callback(null, file);
       })
     )
-    .pipe(rollup({}, mod))
+    .pipe(rollup({ format: 'umd' }))
     .pipe(inline())
     .pipe(
       babel({
