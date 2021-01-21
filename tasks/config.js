@@ -3,7 +3,7 @@ const minimist = require('minimist');
 const isDev = !(process.env.NODE_ENV === 'production');
 const dist = isDev ? 'dist/dev/' : 'dist/pro/';
 
-const { m = '!(lib)' } = minimist(process.argv.slice(2));
+const { m = '**' } = minimist(process.argv.slice(2));
 
 module.exports = {
   paths: {
@@ -12,7 +12,6 @@ module.exports = {
     js: `src/${m}/**/src/*.+(js|es6)`,
     html: `src/${m}/**/html/*.html`,
     assets: `src/${m}/**/src/**/*.!(css|scss|js|es6|html)`,
-    lib: 'src/lib/**/*',
     base: 'src/',
     dist: dist,
     rev: 'rev/',

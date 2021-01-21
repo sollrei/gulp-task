@@ -24,20 +24,18 @@ module.exports = function (pt) {
     _path = pt;
   }
 
-
   return src(_path, { base: config.paths.base })
     .pipe(
       through.obj({ objectMode: true }, function (file, enc, callback) {
         const { bundle } = rd(path.dirname(file.path));
 
         if (bundle && Array.isArray(bundle) && bundle.includes(path.basename(file.path))) {
-          if (file.isBuffer()) {
-            _conf = { format: 'umd' };
-          }
+          // if (file.isBuffer()) {
+          _conf = { format: 'umd' };
+          // }
         } else {
           _conf = {};
         }
-
         callback(null, file);
       })
     )
