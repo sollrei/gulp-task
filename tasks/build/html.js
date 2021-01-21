@@ -4,6 +4,7 @@ const removeEmptyLines = require('gulp-remove-empty-lines');
 const nunjucksRender = require('gulp-nunjucks-render');
 const path = require('path');
 const foreach = require('gulp-foreach');
+const beautify = require('gulp-beautify');
 
 const config = require('../config');
 const browserSync = require('../serve/server').browserSync;
@@ -26,6 +27,9 @@ module.exports = (pt) => {
         );
       })
     )
+    .pipe(beautify.html({
+      indent_size: 2
+    }))
     .pipe(removeEmptyLines())
     .pipe(dest(config.paths.dist))
     .pipe(browserSync.stream());
