@@ -16,9 +16,8 @@
 │               ├── src
 |               |   ├── style.css/scss
 |               |   └── script.js/es6
-│               ├── html
-│               |   └── 页面
-│               └── config.json     # 看需要，可以没有
+│               └── html
+│                   └── page.html
 └── ...
 ```
 
